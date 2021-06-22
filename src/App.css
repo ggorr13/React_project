@@ -1,0 +1,9 @@
+.app-wrapper{
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-auto-columns: 2fr 10fr;
+  grid-template-areas: 'h h' 'n c';
+
+}
