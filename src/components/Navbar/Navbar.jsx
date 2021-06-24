@@ -5,10 +5,8 @@ const Navbar = () => {
     return (
         <nav className={'nav navbar-nav  navbar-light bg-light'}>
             <div className="navbar-nav text-center">
-                <NavLink className="nav-item nav-link active " to="/profile">Profile</NavLink>
+                <NavLink className="nav-item nav-link " to="/profile">Profile</NavLink>
                 <NavLink className="nav-item nav-link" to="/dialogs">Messages</NavLink>
-                <NavLink className="nav-item nav-link" to="#">News</NavLink>
-                <NavLink className="nav-item nav-link" to="#">Music</NavLink>
             </div>
         </nav>
     )

@@ -1,3 +1,6 @@
 .nav{
     grid-area: n;
 }
+.active{
+    color: brown;
+}
