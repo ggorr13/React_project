@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import React from 'react';
+import { addMessageAC,changeMessageAC } from '../../redux/store';
 
 const Dialogs = (props) => {
 
@@ -13,14 +14,13 @@ const Dialogs = (props) => {
 
     function addMessage ()
     {
-        props.addMessage();
-        props.onMessageChange('');
+        props.dispatch(addMessageAC());
     }
 
     function onMessageChange ()
     {
         let input = newMessageElement.current.value;
-        props.onMessageChange(input);
+        props.dispatch(changeMessageAC(input));
     }
 
     return (

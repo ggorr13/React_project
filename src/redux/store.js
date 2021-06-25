@@ -1,3 +1,12 @@
+import dialogsReducer from './dialogsReducer';
+import profileReducer from './profileReducer';
+
+
+const ADD_POST = 'ADD_POST';
+const CHANGE_POST = 'CHANGE_POST';
+const ADD_MESSAGE = 'ADD_MESSAGE';
+const CHANGE_MESSAGE = 'CHANGE_MESSAGE';
+
 let store = {
 
     _state: {
@@ -34,52 +43,31 @@ let store = {
 
     rerenderRntireTree () {},
 
-    _subscribe (observe) {
+    _subscribe (observe)
+    {
         this.rerenderRntireTree = observe
     },
 
-    getState () {
+    getState ()
+    {
         return this._state;
     },
 
-    addPost  ()  {
-        let newPost = {
-            id:5,
-            message: this.getState().profilePage.newPostText,
-            likeCount:0,
-        }
-        this.getState().profilePage.posts.push(newPost);
+    dispatch(action)
+    {
+        this._state.profilePage = profileReducer(this._state.profilePage,action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage,action)
         this.rerenderRntireTree();
     },
-
-    onPostChange (text)  {
-        this.getState().profilePage.newPostText = text;
-
-        this.rerenderRntireTree();
-    },
-
-
-    addMessage () {
-
-        let newDialogs = {
-            id:5,
-            name:'Gor Tamazyan'
-        }
-
-        let newMessage = {
-            id:5,
-            message: this.getState().dialogsPage.newMessageText,
-        }
-
-        this.getState().dialogsPage.dialogs.push(newDialogs);
-        this.getState().dialogsPage.messages.push(newMessage);
-        this.rerenderRntireTree();
-    },
-
-    onMessageChange (text) {
-        this.getState().dialogsPage.newMessageText = text;
-        this.rerenderRntireTree();
-    }
 }
+
+export const addPostAC = () => ({ type: ADD_POST });
+
+export const changePostAC = (post) => ({ type: CHANGE_POST, text:post });
+
+export const addMessageAC = () => ({ type: ADD_MESSAGE});
+
+export const changeMessageAC = (message) => ({type: CHANGE_MESSAGE,text:message})
+
 
 export default store;

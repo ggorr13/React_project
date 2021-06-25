@@ -1,6 +1,7 @@
 import s from './MyPosts.module.css';
 import Post from './Posts/Post'
 import React from 'react';
+import { addPostAC, changePostAC } from '../../../redux/store';
 
 const MyPosts = (props) => {
 
@@ -10,14 +11,13 @@ const MyPosts = (props) => {
 
     function addPost ()
     {
-        props.addPost();
-        props.onPostChange('');
+        props.dispatch(addPostAC());
     }
 
     function onPostChange()
     {
         let input = newpostElement.current.value;
-        props.onPostChange(input);
+        props.dispatch(changePostAC(input));
     }
 
     return (
