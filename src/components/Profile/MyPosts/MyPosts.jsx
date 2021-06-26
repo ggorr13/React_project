@@ -9,13 +9,13 @@ const MyPosts = (props) => {
 
     function addPost ()
     {
-        props.addPost();
+        props.addPostAC();
     }
 
     function onPostChange()
     {
         let text = newpostElement.current.value;
-        props.onPostChange(text);
+        props.changePostAC(text);
     }
 
     return (

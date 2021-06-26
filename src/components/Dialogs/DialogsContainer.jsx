@@ -2,31 +2,15 @@ import s from './Dialogs.module.css';
 import React from 'react';
 import Dialogs from "./Dialogs";
 import { addMessageAC,changeMessageAC } from '../../redux/store';
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
 
-const DialogsContainer = (props) => {
 
-    return (
-        <StoreContext.Consumer>
-            {
-            (store) => {
-
-                function addMessage ()
-                {
-                    store.dispatch(addMessageAC());
-                }
-
-                function onMessageChange (text)
-                {
-                    store.dispatch(changeMessageAC(text));
-                }
-                return  <Dialogs addMessage={addMessage}
-                                 onMessageChange={onMessageChange}
-                                 dialogsPage={store.getState().dialogsPage}/>
-            }
-        }
-        </StoreContext.Consumer>
-    )
+let mapStateToProps = (state) => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
 }
+
+const DialogsContainer = connect(mapStateToProps,{addMessageAC,changeMessageAC}) (Dialogs)
 
 export default DialogsContainer;
