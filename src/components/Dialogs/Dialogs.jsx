@@ -14,13 +14,13 @@ const Dialogs = (props) => {
 
     function addMessage ()
     {
-        props.dispatch(addMessageAC());
+        props.addMessage()
     }
 
     function onMessageChange ()
     {
-        let input = newMessageElement.current.value;
-        props.dispatch(changeMessageAC(input));
+        let text = newMessageElement.current.value;
+        props.onMessageChange(text);
     }
 
     return (

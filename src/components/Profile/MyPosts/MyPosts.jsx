@@ -1,23 +1,21 @@
 import s from './MyPosts.module.css';
 import Post from './Posts/Post'
 import React from 'react';
-import { addPostAC, changePostAC } from '../../../redux/store';
+
 
 const MyPosts = (props) => {
-
-    let postsElement = props.profilePage.posts.map(p => <Post like={p.likeCount} message={p.message}/>)
-
-    let newpostElement = React.createRef();
+    let postsElement = props.profilePage.posts.map(p => <Post like={p.likeCount} message={p.message}/>),
+        newpostElement = React.createRef();
 
     function addPost ()
     {
-        props.dispatch(addPostAC());
+        props.addPost();
     }
 
     function onPostChange()
     {
-        let input = newpostElement.current.value;
-        props.dispatch(changePostAC(input));
+        let text = newpostElement.current.value;
+        props.onPostChange(text);
     }
 
     return (
