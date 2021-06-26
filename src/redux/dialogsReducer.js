@@ -28,7 +28,7 @@ const dialogsReducer = (state = initialState,action) => {
         case ADD_MESSAGE :
             return {
                 ...state,
-                messages: [...state.messages,{id:5,message: state.newMessageText,}],
+                messages: [...state.messages,{id:5,message: state.newMessageText}],
                 dialogs: [...state.dialogs,{id:5,name:'Gor Tamazyan'}],
                 newMessageText: '',
             }
