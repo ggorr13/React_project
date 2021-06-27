@@ -7,7 +7,7 @@ const DialogItem = (props) => {
 
     return (
         <div className={'mt-2'}>
-            <img src={'https://zoomd.com/wp-content/uploads/2020/09/man-avatar-profile-vector-21372076.jpg'}/>
+            <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
             <NavLink className={'navbar-brand text-dark'} to={path}>{props.name}</NavLink>
         </div>
     )

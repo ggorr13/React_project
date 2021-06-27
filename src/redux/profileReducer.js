@@ -35,4 +35,8 @@ const profileReducer = (state = initialState ,action) => {
     }
 }
 
+export const addPostAC = () => ({ type: ADD_POST });
+
+export const changePostAC = (post) => ({ type: CHANGE_POST, text:post });
+
 export default profileReducer;

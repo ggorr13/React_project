@@ -44,4 +44,8 @@ const dialogsReducer = (state = initialState,action) => {
     }
 }
 
+export const addMessageAC = () => ({ type: ADD_MESSAGE});
+
+export const changeMessageAC = (message) => ({type: CHANGE_MESSAGE,text:message})
+
 export default dialogsReducer;

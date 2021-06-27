@@ -1,7 +1,7 @@
 import s from './Dialogs.module.css';
 import React from 'react';
 import Dialogs from "./Dialogs";
-import { addMessageAC,changeMessageAC } from '../../redux/store';
+import { addMessageAC,changeMessageAC } from '../../redux/dialogsReducer';
 import {connect} from "react-redux";
 
 
