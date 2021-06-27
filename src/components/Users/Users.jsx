@@ -1,15 +1,14 @@
 import s from './Users.module.css';
 import React from 'react';
+import axios from 'axios';
 
 const Users = (props) => {
 
     if(props.usersPage.users.length === 0){
-        props.setUsersAC([
-            {id: 1, urlImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU', followed:false, fullName:'Den Sargsyan',status: 'i am a boss', location:{city:'Yereven',country:'Armenia'}},
-            {id: 2, urlImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU', followed:true, fullName:'Lana Harutunyan',status: 'I am a techer', location:{city:'Madrid',country:'Spain'}},
-            {id: 3, urlImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU', followed:false, fullName:'Ani Margaryan',status: 'i am manager', location:{city:'Moscow',country:'Russsia'}},
-            {id: 4, urlImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU', followed:true, fullName:'Gor Tamazyan',status: 'i am a Developer', location:{city:'Los Angeles',country:'USA'}},
-        ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                props.setUsersAC(response.data.items)
+            })
     }
 
     return <div>
@@ -17,7 +16,7 @@ const Users = (props) => {
             props.usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.urlImg}/>
+                        <img src={u.photos.small ?  u.photos.small : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
                     </div>
                     <div>
                         {u.followed 
@@ -28,12 +27,12 @@ const Users = (props) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
-                        <div>{u.status}</div>
+                        <div>{u.name}</div>
+                        <div>{u.status ? null : 'Status: Not completed'}</div>
                     </span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>Country: Not completed</div>
+                        <div>City: Not completed</div>
                     </span>
                 </span>
             </div>)
