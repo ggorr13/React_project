@@ -1,40 +1,24 @@
 import s from './Users.module.css';
 import React from 'react';
 import axios from 'axios';
+import Spiner from '../Spiner/Spiner';
+import { NavLink } from 'react-router-dom';
 
-class Users extends  React.Component{
+let Users2 = (props) => {
 
-    componentDidMount() {
+    let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                   this.props.setUsersAC(response.data.items)
-            })
+    let pages = [];
+
+    for(let i = 1; i<=pageCount;i++){
+        pages.push(i)
     }
 
-    onPageChanged = (p) => {
-        this.props.setCurrentPageAC(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsersAC(response.data.items)
-            })
-    }
+    return <div>
+        <div className={'mb-5'}>
+            {pages.map(p => {
 
-    render () {
-
-        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-
-        let pages = [];
-
-        for(let i = 1; i<=pageCount;i++){
-            pages.push(i)
-        }
-
-        return <div>
-
-            <div className={'mb-5'}>
-                {pages.map(p => {
-                   return <span className={'alert alert-light'} onClick={() => {this.onPageChanged(p)}}>
+                    return <span className={'alert alert-light'} onClick={() => {this.onPageChanged(p)}}>
                        <span className={this.props.currentPage === p && 'fw-bolder h4'}
                              onClick={() => {this.onPageChanged(p)}}>{p}</span>
                    </span>
@@ -42,11 +26,15 @@ class Users extends  React.Component{
                 })}
             </div>
 
+            {this.props.isFetching ? <Spiner /> : null}
+
             {
                 this.props.usersPage.users.map(u => <div key={u.id} className={'mb-5'}>
                 <span>
                     <div>
-                        <img src={u.photos.small ?  u.photos.small : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
+                        <NavLink to={'/profile/'+ u.id}>
+                             <img src={u.photos.small ?  u.photos.small : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
+                        </NavLink>
                     </div>
                     <div>
                         {u.followed
@@ -66,7 +54,6 @@ class Users extends  React.Component{
                     </span>
                 </span>
                 </div>)
-
             }
         </div>
     }
