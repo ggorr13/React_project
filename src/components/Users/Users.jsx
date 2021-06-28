@@ -6,15 +6,42 @@ class Users extends  React.Component{
 
     componentDidMount() {
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                    this.props.setUsersAC(response.data.items)
             })
+    }
 
+    onPageChanged = (p) => {
+        this.props.setCurrentPageAC(p)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsersAC(response.data.items)
+            })
     }
 
     render () {
+
+        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+
+        let pages = [];
+
+        for(let i = 1; i<=pageCount;i++){
+            pages.push(i)
+        }
+
         return <div>
+
+            <div className={'mb-5'}>
+                {pages.map(p => {
+                   return <span className={'alert alert-light'} onClick={() => {this.onPageChanged(p)}}>
+                       <span className={this.props.currentPage === p && 'fw-bolder h4'}
+                             onClick={() => {this.onPageChanged(p)}}>{p}</span>
+                   </span>
+
+                })}
+            </div>
+
             {
                 this.props.usersPage.users.map(u => <div key={u.id} className={'mb-5'}>
                 <span>
@@ -31,7 +58,7 @@ class Users extends  React.Component{
                     <span>
                     <span>
                         <div>{u.name}</div>
-                        <div>{u.status ? null : 'Status: Not completed'}</div>
+                        <div>{u.status ? u.status : 'Status: Not completed'}</div>
                     </span>
                     <span>
                         <div>Country: Not completed</div>
