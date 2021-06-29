@@ -4,39 +4,25 @@ const instance = axios.create({
     withCredentials:true,
     baseURL:'https://social-network.samuraijs.com/api/1.0/',
     headers:{
-        "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
+        "API-KEY":'7e95d189-5848-4381-9f31-37b77b716714',
     },
-
 });
 
 export const usersAPI = {
 
     getUsers (currentPage,pageSize) {
-        return  axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,{
-            withCredentials:true,
-            headers:{
-                "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
-            },
-        })
+        return  instance.get(`users?page=${currentPage}&count=${pageSize}`,)
             .then(response => response.data)
     },
 
     follow (userId) {
-        return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{},{
-            withCredentials:true,
-            headers:{
-                "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
-            },
-        }).then(response => response.data.resultCode)
+        return instance.post(`follow/${userId}`)
+            .then(response => response)
     },
 
     unFollow (userId) {
-        return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
-            withCredentials:true,
-            headers:{
-                "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
-            },
-        }).then(response => response.data.resultCode)
+        return instance.delete(`follow/${userId}`)
+            .then(response => response)
     },
 
     getProfile (userId) {

@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -80,5 +82,34 @@ export const isFetchingAC = (bool) => ({type:IS_FETCHING,bool})
 
 export const disabledAC = (isFetching , id) => ({type:DISABLED,isFetching, id})
 
+export const followThunk = (userId) => (dispatch) => {
+
+    usersAPI.follow(userId).then(resultCode => {
+        console.log(resultCode)
+        if(resultCode === 0){
+           // dispatch(unFollowAC(userId))
+        }
+    })
+}
+
+export const unFollowThunk = (userId) => (dispatch) => {
+
+    usersAPI.unFollow(userId).then(resultCode => {
+        console.log(resultCode)
+        if (resultCode === 0) {
+           // dispatch(followAC(userId))
+        }
+    })
+}
+
+export const  getUsersThunkCreator = (currentPage,pageSize) => (dispatch) => {
+
+    dispatch(isFetchingAC(true))
+    usersAPI.getUsers(currentPage,pageSize).then(response => {
+        dispatch(setUsersAC(response.items))
+        dispatch(setCurrentPageAC(currentPage))
+        dispatch(isFetchingAC(false))
+    })
+}
 
 export default usersReducer;

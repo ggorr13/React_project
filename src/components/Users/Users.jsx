@@ -1,9 +1,6 @@
 import React from 'react';
 import Spiner from '../Spiner/Spiner';
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
-import axios from "axios";
-
 
 let Users = (props) => {
 
@@ -40,33 +37,12 @@ let Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button disabled={props.disabled.some(id => id === u.id)} className={'btn btn-outline-danger'}
-                                      onClick={() => {
-                                          axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},{
-                                              withCredentials:true,
-                                              headers:{
-                                                  "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
-                                              },
-                                          }).then(response => {
-                                              if (response.data.resultCode === 0){
-                                                  props.unFollowAC(u.id)
-                                              }
-                                          })
-                                      }} >Unfollow
-                              </button>
-                            : <button  disabled={props.disabled.some(id => id === u.id)} className={'btn btn-outline-success'}
-                                      onClick={() => {axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{
-                                              withCredentials:true,
-                                              headers:{
-                                                  "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
-                                              },
-                                          }).then(response => {
-                                              if(response.data.resultCode === 0){
-                                                  props.followAC(u.id)
-                                              }
-                                      })
-                                      }}>Follow
-                              </button>
+                            ? <button className={'btn btn-outline-danger'}
+                                      onClick={() => props.followThunk(u.id)}>Unfollow
+                            </button>
+                            : <button className={'btn btn-outline-success'}
+                                      onClick={() => props.unFollowThunk(u.id)}>Follow
+                            </button>
                         }
                     </div>
                 </span>
