@@ -8,7 +8,9 @@ class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.isFetchingAC(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{
+            withCredentials:true,
+        })
             .then(response => {
                 this.props.setUsersAC(response.data.items)
                 this.props.isFetchingAC(false)
@@ -18,7 +20,9 @@ class UsersContainer extends React.Component {
     onPageChanged = (p) => {
         this.props.setCurrentPageAC(p)
         this.props.isFetchingAC(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,{
+            withCredentials:true,
+        })
             .then(response => {
                 this.props.setUsersAC(response.data.items)
                 this.props.isFetchingAC(false)
