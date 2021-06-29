@@ -3,6 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const IS_FETCHING = 'IS_FETCHING';
+const DISABLED = 'DISABLED';
 
 let initialState = {
 
@@ -11,6 +12,7 @@ let initialState = {
     currentPage:1,
     totalUsersCount:100,
     isFetching: false,
+    disabled:[],
 }
 
 const usersReducer = (state = initialState,action) => {
@@ -54,6 +56,13 @@ const usersReducer = (state = initialState,action) => {
                 ...state,
                 isFetching: action.bool
             }
+        case DISABLED:
+            return {
+                ...state,
+                disabled: action.isFetching
+                    ? [...state.disabled,action.id]
+                    : state.disabled.filter(id => id !== action.id)
+            }
         default:
             return state;
     }
@@ -69,6 +78,7 @@ export const setCurrentPageAC = (currentPage) => ({type:SET_CURRENT_PAGE,current
 
 export const isFetchingAC = (bool) => ({type:IS_FETCHING,bool})
 
+export const disabledAC = (isFetching , id) => ({type:DISABLED,isFetching, id})
 
 
 export default usersReducer;

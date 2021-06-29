@@ -2,6 +2,7 @@ import React from 'react';
 import Spiner from '../Spiner/Spiner';
 import {NavLink} from "react-router-dom";
 import {usersAPI} from "../../api/api";
+import axios from "axios";
 
 
 let Users = (props) => {
@@ -39,19 +40,32 @@ let Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button className={'btn btn-outline-danger'}
-                                      onClick={() => usersAPI.follow(u.id).then(resultCode => {
-                                              if(resultCode === 0){
+                            ? <button disabled={props.disabled.some(id => id === u.id)} className={'btn btn-outline-danger'}
+                                      onClick={() => {
+                                          axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},{
+                                              withCredentials:true,
+                                              headers:{
+                                                  "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
+                                              },
+                                          }).then(response => {
+                                              if (response.data.resultCode === 0){
                                                   props.unFollowAC(u.id)
                                               }
-                                      })}>Unfollow
+                                          })
+                                      }} >Unfollow
                               </button>
-                            : <button className={'btn btn-outline-success'}
-                                      onClick={() => usersAPI.unFollow(u.id).then(resultCode => {
-                                              if(resultCode === 0){
+                            : <button  disabled={props.disabled.some(id => id === u.id)} className={'btn btn-outline-success'}
+                                      onClick={() => {axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{
+                                              withCredentials:true,
+                                              headers:{
+                                                  "API-KEY":'031f07b2-b965-4987-a8d9-5921845550a6',
+                                              },
+                                          }).then(response => {
+                                              if(response.data.resultCode === 0){
                                                   props.followAC(u.id)
                                               }
-                                      })}>Follow
+                                      })
+                                      }}>Follow
                               </button>
                         }
                     </div>
