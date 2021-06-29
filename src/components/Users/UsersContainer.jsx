@@ -1,18 +1,18 @@
 import {connect} from "react-redux";
+import s from './Users.module.css';
 import { followAC, unFollowAC,setUsersAC,setCurrentPageAC,isFetchingAC } from '../../redux/usersReducer';
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
+import {usersAPI} from "../../api/api";
+
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
+
         this.props.isFetchingAC(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{
-            withCredentials:true,
-        })
-            .then(response => {
-                this.props.setUsersAC(response.data.items)
+        usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(response => {
+                this.props.setUsersAC(response.items)
                 this.props.isFetchingAC(false)
             })
     }
@@ -20,11 +20,9 @@ class UsersContainer extends React.Component {
     onPageChanged = (p) => {
         this.props.setCurrentPageAC(p)
         this.props.isFetchingAC(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,{
-            withCredentials:true,
-        })
+        usersAPI.getUsers(p,this.props.pageSize)
             .then(response => {
-                this.props.setUsersAC(response.data.items)
+                this.props.setUsersAC(response.items)
                 this.props.isFetchingAC(false)
             })
     }
