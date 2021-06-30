@@ -37,11 +37,11 @@ let Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button className={'btn btn-outline-danger'}
-                                      onClick={() => props.followThunk(u.id)}>Unfollow
+                            ? <button className={'btn btn-outline-danger'} disabled={props.disabled}
+                                      onClick={() => props.unFollowThunk(u.id)}>Unfollow
                             </button>
-                            : <button className={'btn btn-outline-success'}
-                                      onClick={() => props.unFollowThunk(u.id)}>Follow
+                            : <button className={'btn btn-outline-success'} disabled={props.disabled}
+                                      onClick={() => props.followThunk(u.id)}>Follow
                             </button>
                         }
                     </div>

@@ -14,7 +14,7 @@ let initialState = {
     currentPage:1,
     totalUsersCount:100,
     isFetching: false,
-    disabled:[],
+    disabled:false,
 }
 
 const usersReducer = (state = initialState,action) => {
@@ -61,9 +61,8 @@ const usersReducer = (state = initialState,action) => {
         case DISABLED:
             return {
                 ...state,
-                disabled: action.isFetching
-                    ? [...state.disabled,action.id]
-                    : state.disabled.filter(id => id !== action.id)
+                disabled: action.bool
+
             }
         default:
             return state;
@@ -80,24 +79,27 @@ export const setCurrentPageAC = (currentPage) => ({type:SET_CURRENT_PAGE,current
 
 export const isFetchingAC = (bool) => ({type:IS_FETCHING,bool})
 
-export const disabledAC = (isFetching , id) => ({type:DISABLED,isFetching, id})
+export const disabledAC = (bool) => ({type:DISABLED,bool})
 
 export const followThunk = (userId) => (dispatch) => {
 
-    usersAPI.follow(userId).then(resultCode => {
-        console.log(resultCode)
-        if(resultCode === 0){
-           // dispatch(unFollowAC(userId))
+    dispatch(disabledAC(true))
+    usersAPI.follow(userId).then(data => {
+        if(data.resultCode === 0){
+            dispatch(followAC(userId))
+            dispatch(disabledAC(false))
         }
     })
 }
 
 export const unFollowThunk = (userId) => (dispatch) => {
 
-    usersAPI.unFollow(userId).then(resultCode => {
-        console.log(resultCode)
-        if (resultCode === 0) {
-           // dispatch(followAC(userId))
+    dispatch(disabledAC(true))
+    usersAPI.unFollow(userId).then(data => {
+
+        if (data.resultCode === 0) {
+            dispatch(unFollowAC(userId))
+            dispatch(disabledAC(false))
         }
     })
 }

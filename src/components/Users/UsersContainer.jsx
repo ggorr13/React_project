@@ -3,6 +3,8 @@ import s from './Users.module.css';
 import {getUsersThunkCreator, followThunk, unFollowThunk} from '../../redux/usersReducer';
 import React from "react";
 import Users from "./Users";
+import {WithAuthRedirect} from "../../Hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 class UsersContainer extends React.Component {
 
@@ -26,7 +28,17 @@ let mapStateToProps = (state) => {
         totalUsersCount:state.usersPage.totalUsersCount,
         pageSize: state.usersPage.pageSize,
         isFetching:state.usersPage.isFetching,
+        disabled:state.usersPage.disabled,
+        login: state.auth.login,
     }
 }
 
-export default connect(mapStateToProps,{ getUsersThunkCreator, followThunk,unFollowThunk })(UsersContainer)
+export default compose(
+    connect(mapStateToProps,{ getUsersThunkCreator, followThunk,unFollowThunk }),
+    WithAuthRedirect,
+)(UsersContainer)
+
+
+
+
+

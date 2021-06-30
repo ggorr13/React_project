@@ -17,18 +17,21 @@ export const usersAPI = {
 
     follow (userId) {
         return instance.post(`follow/${userId}`)
-            .then(response => response)
+            .then(response => response.data)
     },
 
     unFollow (userId) {
         return instance.delete(`follow/${userId}`)
-            .then(response => response)
+            .then(response => response.data)
     },
 
     getProfile (userId) {
         return instance.get(`profile/${userId}`)
             .then(response => response.data)
     },
+}
+
+export const authAPI = {
 
     authMe () {
         return instance.get('auth/me')
