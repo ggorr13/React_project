@@ -1,5 +1,6 @@
 import s from './ProfileInfo.module.css';
 import Spiner from "../../Spiner/Spiner";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
     if(!props.profile){
@@ -17,7 +18,7 @@ const ProfileInfo = (props) => {
                     <h4>{props.profile.fullName}</h4>
                     <h6>{props.profile.lookingForAJobDescription}</h6>
                 </div>
-               <h4>Ava + description</h4>
+               <ProfileStatus status={'Hello World'} />
             </div>
         </div>
     )
