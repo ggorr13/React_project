@@ -18,7 +18,7 @@ const LoginForm = (props) => {
                     <label className={"form-check-label"} htmlFor={"exampleCheck1"}>Remember me</label>
                 </div>
                 <div className={'mt-1 '}>
-                    <button type={"submit"} className={"btn btn-primary w-25 mt-3"}>Submit</button>
+                    <button type={"submit"} className={"btn btn-dark w-25 mt-3"}>Login</button>
                 </div>
             </form>
         </div>

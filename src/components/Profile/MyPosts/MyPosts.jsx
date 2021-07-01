@@ -1,30 +1,21 @@
 import s from './MyPosts.module.css';
 import Post from './Posts/Post'
 import React from 'react';
-
+import MyPostsReduxForm from "./MyPostsForm";
 
 const MyPosts = (props) => {
-    let postsElement = props.profilePage.posts.map(p => <Post like={p.likeCount} message={p.message}/>),
-        newpostElement = React.createRef();
 
-    function addPost ()
-    {
-        props.addPostAC();
-    }
+    let postsElement = props.profilePage.posts.map(p => <Post like={p.likeCount} message={p.message}/>)
 
-    function onPostChange()
+    function onSubmit (formData)
     {
-        let text = newpostElement.current.value;
-        props.changePostAC(text);
+        props.addPostAC(formData.post);
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
-            <div className={'d-flex mb-3'}>
-                <input type={'text'} onChange={onPostChange} className={'form-control mr-sm-2 w-25'} ref={newpostElement}  value={props.profilePage.newPostText}></input>
-                <button className={'btn btn-outline-dark my-2 my-sm-0'} onClick={addPost}>Add post</button>
-            </div>
+            <MyPostsReduxForm onSubmit={onSubmit}/>
             <div>
                 {postsElement}
             </div>
