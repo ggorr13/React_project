@@ -6,7 +6,6 @@ const ProfileInfo = (props) => {
     if(!props.profile){
         return <Spiner />
     }
-
     return (
         <div>
             <div>
@@ -14,11 +13,18 @@ const ProfileInfo = (props) => {
             </div>
             <div className={s.descriptionBlock}>
                 <div>
-                    <img src={props.profile.photos.large}/>
-                    <h4>{props.profile.fullName}</h4>
-                    <h6>{props.profile.lookingForAJobDescription}</h6>
+                    {
+                        props.profile.map(val => {
+                            return (
+                                <div>
+                                    <img src={val.photo.large}/>
+                                    <h4>{val.fullName}</h4>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-               <ProfileStatus status={'Hello World'} />
+               <ProfileStatus status={props.status} updateStatusThunk={props.updateStatusThunk}/>
             </div>
         </div>
     )
