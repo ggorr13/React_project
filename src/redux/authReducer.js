@@ -3,6 +3,7 @@ import {stopSubmit} from "redux-form";
 const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
+
     id: null,
     login: null,
     email: null,
@@ -10,7 +11,7 @@ let initialState = {
     isAuth:false,
 }
 
-const authReducer = (state = initialState,action) => {
+const appReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
@@ -26,11 +27,12 @@ const authReducer = (state = initialState,action) => {
     }
 }
 
-export const setAuthUserDataAC = (state,isAuth = true) => ({type:SET_USER_DATA,state,isAuth})
+export const setAuthUserDataAC = (state,isAuth = true) => ({type:SET_USER_DATA,state,isAuth});
+
 
 export const setAuthUserThunkCreator = () => (dispatch) => {
 
-    authAPI.authMe().then(response  => {
+    return authAPI.authMe().then(response  => {
 
         if(response.resultCode === 0) {
             dispatch(setAuthUserDataAC(response.data))
@@ -59,7 +61,7 @@ export const logOutThunk = () => (dispatch) => {
             }
         })
 }
-export default authReducer;
+export default appReducer;
 
 
 

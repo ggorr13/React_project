@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {loginThunk, logOutThunk} from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
 
-
 const Login = (props) => {
 
     const onSubmit = (formData) => {
@@ -14,7 +13,7 @@ const Login = (props) => {
 
     if(props.isAuth){
         return <Redirect to={'/profile'}/>
-    }else {
+    } else {
         return (
             <LoginReduxForm onSubmit={onSubmit}/>
         )
