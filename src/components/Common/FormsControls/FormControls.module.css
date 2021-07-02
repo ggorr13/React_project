@@ -1,7 +1,7 @@
 .formControl.error input {
-    border: 1px solid rgb(185 74 72);
+    border: 1px solid #de3545;
 }
 
 .formControl.error label {
-    color: rgb(185 74 72);
+    color: #de3545;
 }

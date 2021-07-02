@@ -1,4 +1,5 @@
 import { authAPI } from "../api/api";
+import {stopSubmit} from "redux-form";
 const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
@@ -43,6 +44,8 @@ export const loginThunk = (email,password,rememberMe= false) => (dispatch) => {
         .then(response => {
             if(response.data.resultCode === 0) {
                 dispatch(setAuthUserDataAC(email,password,rememberMe))
+            }else {
+                dispatch(stopSubmit("login",{ _error: 'Invalid email or password'}))
             }
         })
 }

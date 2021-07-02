@@ -2,6 +2,7 @@ import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../Common/FormsControls/FormControls";
 import {maxLengthThunk, required} from "../../Helper/Validation/validator";
+import s from '../../components/Common/FormsControls/FormControls.module.css'
 
 const maxLength30 = maxLengthThunk(30)
 
@@ -23,6 +24,9 @@ const LoginForm = (props) => {
                 <div className={'mt-2 form-check'}>
                     <Field component={"input"} type={'checkbox'} className={"form-check-input"} name={'rememberMe'} id={"exampleCheck1"}/>
                     <label className={"form-check-label"} htmlFor={"exampleCheck1"}>Remember me</label>
+                </div>
+                <div>
+                    <h6 className={'text-danger'}>{props.error}</h6>
                 </div>
                 <div className={'mt-1'}>
                     <button className={"btn btn-dark w-25 mt-3"}>Login</button>
