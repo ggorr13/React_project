@@ -12,7 +12,7 @@ const LoginForm = (props) => {
             <form onSubmit={props.handleSubmit} className={'w-50 d-flex justify-content-center flex-column'}>
                 <h1 >Login</h1>
                 <div className={'mt-3'}>
-                    <Field component={Input} type={'text'} name={'login'}
+                    <Field component={Input} type={'text'} name={'email'}
                            placeholder={"Enter email"} validate={[required,maxLength30]}/>
                 </div>
                 <div className={'mt-3'}>
@@ -24,8 +24,8 @@ const LoginForm = (props) => {
                     <Field component={"input"} type={'checkbox'} className={"form-check-input"} name={'rememberMe'} id={"exampleCheck1"}/>
                     <label className={"form-check-label"} htmlFor={"exampleCheck1"}>Remember me</label>
                 </div>
-                <div className={'mt-1 '}>
-                    <button type={"submit"} className={"btn btn-dark w-25 mt-3"}>Login</button>
+                <div className={'mt-1'}>
+                    <button className={"btn btn-dark w-25 mt-3"}>Login</button>
                 </div>
             </form>
         </div>

@@ -6,6 +6,7 @@ let initialState = {
     login: null,
     email: null,
     isFetching: false,
+    isAuth:false,
 }
 
 const authReducer = (state = initialState,action) => {
@@ -15,7 +16,8 @@ const authReducer = (state = initialState,action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.state
+                ...action.state,
+                isAuth: action.isAuth
             }
 
         default:
@@ -23,7 +25,7 @@ const authReducer = (state = initialState,action) => {
     }
 }
 
-export const setAuthUserDataAC = (state) => ({type:SET_USER_DATA,state})
+export const setAuthUserDataAC = (state,isAuth = true) => ({type:SET_USER_DATA,state,isAuth})
 
 export const setAuthUserThunkCreator = () => (dispatch) => {
 
@@ -33,6 +35,26 @@ export const setAuthUserThunkCreator = () => (dispatch) => {
             dispatch(setAuthUserDataAC(response.data))
         }
     })
+}
+
+export const loginThunk = (email,password,rememberMe= false) => (dispatch) => {
+
+    authAPI.login(email,password,rememberMe)
+        .then(response => {
+            if(response.data.resultCode === 0) {
+                dispatch(setAuthUserDataAC(email,password,rememberMe))
+            }
+        })
+}
+
+export const logOutThunk = () => (dispatch) => {
+
+    authAPI.logOut()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserDataAC(null,false))
+            }
+        })
 }
 export default authReducer;
 
