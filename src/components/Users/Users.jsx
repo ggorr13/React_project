@@ -1,5 +1,5 @@
 import React from 'react';
-import Spiner from '../Spiner/Spiner';
+import Spiner from '../Common/Spiner/Spiner';
 import {NavLink} from "react-router-dom";
 
 let Users = (props) => {

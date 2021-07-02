@@ -1,5 +1,9 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
+import {Input} from "../Common/FormsControls/FormControls";
+import {maxLengthThunk, required} from "../../Helper/Validation/validator";
+
+const maxLength30 = maxLengthThunk(30)
 
 const LoginForm = (props) => {
 
@@ -8,10 +12,13 @@ const LoginForm = (props) => {
             <form onSubmit={props.handleSubmit} className={'w-50 d-flex justify-content-center flex-column'}>
                 <h1 >Login</h1>
                 <div className={'mt-3'}>
-                    <Field component={"input"} type={'text'} className={"form-control w-50"} name={'login'} placeholder={"Enter email"}/>
+                    <Field component={Input} type={'text'} name={'login'}
+                           placeholder={"Enter email"} validate={[required,maxLength30]}/>
                 </div>
                 <div className={'mt-3'}>
-                    <Field component={"input"} type={'password'} className={"form-control w-50"} name={'pass'} placeholder={"Password"}/>
+                    <Field component={Input} type={'password'}  name={'pass'}
+                           placeholder={"Password"} validate={[required,maxLength30]}
+                    />
                 </div>
                 <div className={'mt-2 form-check'}>
                     <Field component={"input"} type={'checkbox'} className={"form-check-input"} name={'rememberMe'} id={"exampleCheck1"}/>

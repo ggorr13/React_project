@@ -1,5 +1,5 @@
 import s from './ProfileInfo.module.css';
-import Spiner from "../../Spiner/Spiner";
+import Spiner from "../../Common/Spiner/Spiner";
 import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
