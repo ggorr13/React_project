@@ -1,14 +1,24 @@
 import ProfileInfo from '../Profile/ProfileInfo/ProfileInfo';
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {Component} from "react";
 
-const Profile = (props) => {
+class Profile extends Component {
 
-    return (
-        <div>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatusThunk={props.updateStatusThunk}/>
-            <MyPostsContainer/>
-        </div>
-    )
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+
+        return this.props !== nextProps || this.state !== nextState;
+    }
+
+    render() {
+
+        return (
+            <div>
+                <ProfileInfo profile={this.props.profile} status={this.props.status}
+                             updateStatusThunk={this.props.updateStatusThunk}/>
+                <MyPostsContainer/>
+            </div>
+        )
+    }
 }
 
 export default Profile;
