@@ -1,6 +1,7 @@
 import s from './ProfileInfo.module.css';
 import Spiner from "../../Common/Spiner/Spiner";
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHoocks from "./ProfileStatusWithHoocks";
 
 const ProfileInfo = (props) => {
     if(!props.profile){
@@ -24,7 +25,7 @@ const ProfileInfo = (props) => {
                         })
                     }
                 </div>
-               <ProfileStatus status={props.status} updateStatusThunk={props.updateStatusThunk}/>
+               <ProfileStatusWithHoocks status={props.status} updateStatusThunk={props.updateStatusThunk}/>
             </div>
         </div>
     )

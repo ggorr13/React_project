@@ -10,9 +10,9 @@ const DISABLED = 'DISABLED';
 let initialState = {
 
     users: [],
-    pageSize:10,
+    pageSize:13,
     currentPage:1,
-    totalUsersCount:100,
+    totalUsersCount:160,
     isFetching: false,
     disabled:false,
 }
