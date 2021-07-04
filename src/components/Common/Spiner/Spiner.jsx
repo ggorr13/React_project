@@ -1,12 +1,5 @@
 
-const Spiner = () => {
-    return (
-        <div className="d-flex justify-content-center ">
-            <div className="spinner-border mt-5" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>
-        </div>
-    )
-}
+const Spiner = () => <div className="spinner-grow text-dark m-3" role="status"/>;
+
 
 export default Spiner;

@@ -7,11 +7,10 @@ let initialState = {
     id: null,
     login: null,
     email: null,
-    isFetching: false,
     isAuth:false,
 }
 
-const appReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
@@ -30,14 +29,13 @@ const appReducer = (state = initialState, action) => {
 export const setAuthUserDataAC = (state,isAuth = true) => ({type:SET_USER_DATA,state,isAuth});
 
 
-export const setAuthUserThunkCreator = () => (dispatch) => {
+export const setAuthUserThunkCreator = () => async (dispatch) => {
 
-    return authAPI.authMe().then(response  => {
+    let response = await authAPI.authMe()
 
         if(response.resultCode === 0) {
             dispatch(setAuthUserDataAC(response.data))
         }
-    })
 }
 
 export const loginThunk = (email,password,rememberMe= false) => (dispatch) => {
@@ -45,7 +43,7 @@ export const loginThunk = (email,password,rememberMe= false) => (dispatch) => {
     authAPI.login(email,password,rememberMe)
         .then(response => {
             if(response.data.resultCode === 0) {
-                dispatch(setAuthUserDataAC(email,password,rememberMe))
+                dispatch(setAuthUserThunkCreator())
             }else {
                 dispatch(stopSubmit("login",{ _error: 'Invalid email or password'}))
             }
@@ -61,7 +59,7 @@ export const logOutThunk = () => (dispatch) => {
             }
         })
 }
-export default appReducer;
+export default authReducer;
 
 
 

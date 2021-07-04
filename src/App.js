@@ -10,7 +10,6 @@ import {Component} from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializedThunk} from "./redux/appReducer";
-import Spiner from "./components/Common/Spiner/Spiner";
 
 class App extends Component {
 
@@ -19,7 +18,6 @@ class App extends Component {
     }
 
     render() {
-        !this.props.initialized ?? <Spiner/>
 
         return (
             <BrowserRouter>

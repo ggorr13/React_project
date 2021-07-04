@@ -2,7 +2,6 @@ import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../Common/FormsControls/FormControls";
 import {maxLengthThunk, required} from "../../Helper/Validation/validator";
-import s from '../../components/Common/FormsControls/FormControls.module.css'
 
 const maxLength30 = maxLengthThunk(30)
 

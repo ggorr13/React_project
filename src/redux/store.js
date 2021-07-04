@@ -1,7 +1,6 @@
 import dialogsReducer from './dialogsReducer';
 import profileReducer from './profileReducer';
 
-
 const ADD_POST = 'ADD_POST';
 const CHANGE_POST = 'CHANGE_POST';
 const ADD_MESSAGE = 'ADD_MESSAGE';
