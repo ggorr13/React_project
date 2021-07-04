@@ -1,24 +1,13 @@
+import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import store from './redux/redux-store';
+import MainApp from "./App";
 
-import {Provider} from "react-redux";
-
-let rerenderRntireTree = () => {
-    ReactDOM.render(
-        <Provider store={store}>
-                <App />
-        </Provider>,
-        document.getElementById('root')
-    );
-}
-
-rerenderRntireTree();
-
-store.subscribe(rerenderRntireTree)
+ReactDOM.render(
+    <MainApp />,
+    document.getElementById('root')
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

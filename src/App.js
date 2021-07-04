@@ -6,10 +6,11 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {Component} from "react";
-import {connect} from "react-redux";
+import React, {Component} from "react";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializedThunk} from "./redux/appReducer";
+import store from "./redux/redux-store";
 
 class App extends Component {
 
@@ -42,7 +43,14 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default compose(
+let AppContainer = compose(
     connect(mapStateToProps,{initializedThunk})
 )(App)
 
+let MainApp = () => {
+    return <Provider store={store}>
+        <AppContainer />
+    </Provider>
+}
+
+export default MainApp;
