@@ -4,17 +4,11 @@ import {Component} from "react";
 
 class Profile extends Component {
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-
-        return this.props !== nextProps || this.state !== nextState;
-    }
-
     render() {
 
         return (
             <div>
-                <ProfileInfo profile={this.props.profile} status={this.props.status}
-                             updateStatusThunk={this.props.updateStatusThunk}/>
+                <ProfileInfo {...this.props} profile={this.props.profile} isOwner={this.props.isOwner}/>
                 <MyPostsContainer/>
             </div>
         )

@@ -7,6 +7,13 @@ const ProfileInfo = (props) => {
     if(!props.profile){
         return <Spiner />
     }
+
+    const onMainPhotoSelected = (e) => {
+        if(e.target.files.length){
+            props.savePhotoThunk(e.target.files[0])
+        }
+    }
+
     return (
         <div>
             <div>
@@ -18,14 +25,15 @@ const ProfileInfo = (props) => {
                         props.profile.map(val => {
                             return (
                                 <div>
-                                    <img src={val.photo.large}/>
+                                    <img src={val.photo.large || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
+                                    {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} className={'form-control w-25'}/>}
                                     <h4>{val.fullName}</h4>
                                 </div>
                             )
                         })
                     }
                 </div>
-               <ProfileStatusWithHoocks status={props.status} updateStatusThunk={props.updateStatusThunk}/>
+                <ProfileStatusWithHoocks status={props.status} updateStatusThunk={props.updateStatusThunk}/>
             </div>
         </div>
     )
