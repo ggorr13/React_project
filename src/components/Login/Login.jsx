@@ -7,7 +7,7 @@ const Login = (props) => {
 
     const onSubmit = (formData) => {
 
-        props.loginThunk(formData.email,formData.pass,formData.rememberMe)
+        props.loginThunk(formData.email,formData.pass,formData.captcha,formData.rememberMe)
 
     }
 
@@ -15,7 +15,7 @@ const Login = (props) => {
         return <Redirect to={'/profile'}/>
     } else {
         return (
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         )
     }
 }
@@ -24,6 +24,7 @@ const mapStateToProps = (state) => {
 
     return {
         isAuth: state.auth.isAuth,
+        captchaUrl:state.auth.captchaUrl,
     }
 }
 

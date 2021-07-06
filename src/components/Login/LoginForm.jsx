@@ -27,6 +27,14 @@ const LoginForm = (props) => {
                 <div>
                     <h6 className={'text-danger'}>{props.error}</h6>
                 </div>
+                <div>
+                    {props.captchaUrl &&
+                    <div>
+                        <img src={props.captchaUrl}/>
+                        <Field component={Input} name={'captcha'} validate={[required]}/>
+                    </div>
+                    }
+                </div>
                 <div className={'mt-1'}>
                     <button className={"btn btn-dark w-25 mt-3"}>Login</button>
                 </div>
