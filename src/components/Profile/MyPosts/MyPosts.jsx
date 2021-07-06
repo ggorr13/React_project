@@ -5,7 +5,7 @@ import MyPostsReduxForm from "./MyPostsForm";
 
 const MyPosts = React.memo(props => {
 
-    let postsElement = props.profilePage.posts.map(p => <Post like={p.likeCount} message={p.message}/>)
+    let postsElement = props.profilePage.posts.map(p => <Post key={p.id} like={p.likeCount} message={p.message}/>)
 
     function onSubmit (formData)
     {

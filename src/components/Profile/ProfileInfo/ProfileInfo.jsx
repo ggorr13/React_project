@@ -2,10 +2,21 @@ import s from './ProfileInfo.module.css';
 import Spiner from "../../Common/Spiner/Spiner";
 import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHoocks from "./ProfileStatusWithHoocks";
+import Description from "./Description";
+import {useState} from "react";
+import ProfileForm from "./DescriptionForm";
 
 const ProfileInfo = (props) => {
+
+    let [editMode,setEditMode] = useState(false);
+
     if(!props.profile){
         return <Spiner />
+    }
+
+    const onSubmit = (formData) => {
+        props.saveProfileThunk(formData).then(() => setEditMode(false))
+
     }
 
     const onMainPhotoSelected = (e) => {
@@ -24,7 +35,7 @@ const ProfileInfo = (props) => {
                     {
                         props.profile.map(val => {
                             return (
-                                <div>
+                                <div key={val}>
                                     <img src={val.photo.large || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
                                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} className={'form-control w-25'}/>}
                                     <h4>{val.fullName}</h4>
@@ -34,6 +45,12 @@ const ProfileInfo = (props) => {
                     }
                 </div>
                 <ProfileStatusWithHoocks status={props.status} updateStatusThunk={props.updateStatusThunk}/>
+                {
+                    editMode
+                    ? <ProfileForm onSubmit={onSubmit} profile={props.profile} />
+                    : <Description profile={props.profile} setEditMode={setEditMode} isOwner={props.isOwner}/>
+                }
+
             </div>
         </div>
     )

@@ -1,4 +1,5 @@
 import { profileAPI } from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -33,7 +34,14 @@ const profileReducer = (state = initialState ,action) => {
         case SET_USER_PROFILE:
             return {
                 ...state,
-                profile:  [{fullName:action.name,photo:action.photo}]
+                profile:  [{
+                    fullName:action.name,
+                    photo:action.photo,
+                    contacts:action.contacts,
+                    aboutMe:action.aboutMe,
+                    lookingForAJob:action.lookingForAJob,
+                    lookingForAJobDescription:action.lookingForAJobDescription
+                }]
             }
         case SET_STATUS :
             return {
@@ -59,7 +67,7 @@ export const addPostAC = (post) => ({ type: ADD_POST,post });
 
 export const deletePostAC = (postId) => ({ type: DELETE_POST,postId });
 
-export const setUserProfileAC = (name,photo) =>({type:SET_USER_PROFILE,name,photo})
+export const setUserProfileAC = (name,photo,contacts,aboutMe,lookingForAJob,lookingForAJobDescription) =>({type:SET_USER_PROFILE,name,photo,contacts,aboutMe,lookingForAJob,lookingForAJobDescription})
 
 export const setStatusAC = (status) => ({type:SET_STATUS,status})
 
@@ -69,7 +77,15 @@ export const setUserProfileThunkCreator = (userId) => (dispatch) => {
 
     profileAPI.getProfile(userId)
         .then(response => {
-            dispatch(setUserProfileAC(response.data.fullName,response.data.photos))
+            console.log(response)
+            dispatch(setUserProfileAC(
+                response.data.fullName,
+                response.data.photos,
+                response.data.contacts,
+                response.data.aboutMe,
+                response.data.lookingForAJob,
+                response.data.lookingForAJobDescription,
+            ))
         })
 }
 
@@ -95,6 +111,19 @@ export const savePhotoThunk = (image) => async (dispatch) => {
     if(response.data.resultCode === 0){
         console.log(response.data.data.photos)
         dispatch(profilePhotoAC(response.data.data.photos))
+    }
+}
+
+export const saveProfileThunk = (formData) => async  (dispatch,getState) => {
+    const userId = getState().auth.id
+
+    let response = await profileAPI.profile(formData)
+    if(response.data.resultCode === 0){
+        dispatch(setUserProfileThunkCreator(userId))
+    }else {
+        dispatch(stopSubmit("Description",{ _error: response.data.messages[0]}));
+
+        return Promise.reject(response.data.messages[0]);
     }
 }
 

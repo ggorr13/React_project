@@ -70,5 +70,10 @@ export const profileAPI = {
                 'Content-Type':'multipart/form-data'
             }
         })
+    },
+
+    profile (formData) {
+
+        return instance.put(`profile`,formData)
     }
 }
