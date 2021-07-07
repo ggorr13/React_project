@@ -1,12 +1,17 @@
+import s from './ProfileInfo.module.css';
+
 const Description = (props) => {
 
     return (
-        <div>
-            {props.isOwner && <button onClick={ () => props.setEditMode(true)} className={'btn btn-danger'}>Edit</button>}
+        <div className={'p-5 mr-5'} >
+            <div className={s.button}>
+                {props.isOwner && <button onClick={ () => props.setEditMode(true)} className={'btn btn-danger w-25'}>Edit</button>}
+            </div>
+
 
             {props.profile.map(val => {
                 return <div key={val}>
-                    <div>
+                    <div className={'mt-3'}>
                         <b>Full Name</b>: {val.fullName}
                     </div>
                     <div>
@@ -20,7 +25,7 @@ const Description = (props) => {
                         <b>About me</b>: {val.aboutMe}
                     </div>
                     <div>
-                        <b>Contacts</b>{Object.keys(val.contacts).map(key => {
+                        <b>Contacts</b>{!val.contacts ? '' :Object.keys(val.contacts).map(key => {
                             return <div className={'m-1'} key={key}>
                                 <Contact contactTitle={key}  contactValue={val.contacts[key]}/>
                             </div>

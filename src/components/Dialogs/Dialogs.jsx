@@ -18,7 +18,7 @@ const Dialogs = (props) => {
             <div>
                 {dialogsElements}
             </div>
-            <div className={'mt-3'}>
+            <div className={''}>
                 {messagesElements}
             </div>
             <div className={"navbar navbar-light bg-light"}>

@@ -2,5 +2,11 @@
     width: 90%;
 }
 .descriptionBlock{
+    display: grid;
+    grid-template-columns: 50% 50%;
     padding: 10px;
+}
+
+.button{
+    margin-top: -45px;
 }

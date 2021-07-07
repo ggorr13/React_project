@@ -8,7 +8,7 @@ class Profile extends Component {
 
         return (
             <div>
-                <ProfileInfo {...this.props} profile={this.props.profile} isOwner={this.props.isOwner}/>
+                <ProfileInfo {...this.props} isOwner={this.props.isOwner}/>
                 <MyPostsContainer/>
             </div>
         )

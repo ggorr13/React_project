@@ -1,17 +1,19 @@
 import './App.css';
 import Navbar  from './components/Navbar/Navbar';
-import {Route, BrowserRouter } from "react-router-dom";
+import {Route, BrowserRouter, Redirect} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import UsersContainer from "./components/Users/UsersContainer";
 import React, {Suspense} from "react";
 import {connect, Provider} from "react-redux";
-import {compose} from "redux";
-import {initializedThunk} from "./redux/appReducer";
+import { compose } from "redux";
+import { initializedThunk } from "./redux/appReducer";
 import store from "./redux/redux-store";
 import MainSpinner from "./components/Common/MainSpinner/MainSpinner";
+import Spiner from "./components/Common/Spiner/Spiner";
+
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 class App extends React.Component {
@@ -21,27 +23,32 @@ class App extends React.Component {
     }
 
     render() {
+        if(!this.props.initialized){
+            return <Spiner />
+        }
 
         return (
             <BrowserRouter>
                 <div className={'app-wrapper'}>
                     <HeaderContainer/>
                     <Navbar/>
+
                     <div className={'app-wrapper-content'}>
 
                         <Suspense fallback={<MainSpinner/>}>
-                            <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                            <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
                         </Suspense>
 
                         <Suspense fallback={<MainSpinner/>}>
-                            <Route path="/users" render={() => <UsersContainer/>}/>
+                            <Route exact path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                         </Suspense>
 
-                        <Suspense fallback={<MainSpinner/>}>
-                            <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                        </Suspense>
+                        <Route exact path="/users" render={() => <UsersContainer/>}/>
 
-                        <Route path="/login" render={() => <Login/>}/>
+                        <Route exact path="/login" render={() => <Login/>}/>
+
+                        <Route exact path="/" render={() => <Redirect to={'/profile'} />}/>
+
                     </div>
                 </div>
             </BrowserRouter>

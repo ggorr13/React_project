@@ -1,0 +1,11 @@
+.form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    left: 600px;
+}
+
+.input{
+    font-size: 20px;
+}

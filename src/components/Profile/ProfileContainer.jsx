@@ -1,10 +1,10 @@
 import Profile from './Profile';
 import React from 'react';
 import { connect } from "react-redux";
-import {getStatusThunk, setUserProfileThunkCreator, updateStatusThunk,savePhotoThunk, saveProfileThunk } from '../../redux/profileReducer';
+import { getStatusThunk, setUserProfileThunkCreator, updateStatusThunk,savePhotoThunk, saveProfileThunk } from '../../redux/profileReducer';
 import { withRouter } from 'react-router-dom';
-import {WithAuthRedirect} from "../../Hoc/WithAuthRedirect";
-import {compose} from "redux";
+import { WithAuthRedirect } from "../../Hoc/WithAuthRedirect";
+import { compose } from "redux";
 
 class ProfileContainer extends React.Component{
 
@@ -28,10 +28,8 @@ class ProfileContainer extends React.Component{
         }
     }
 
-
     render () {
-
-        return <Profile {...this.props} profile={this.props.profile} isOwner={!this.props.match.params.userId}/>
+        return <Profile {...this.props} isOwner={!this.props.match.params.userId}/>
     }
 }
 
@@ -46,11 +44,8 @@ let mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps,{
-        setUserProfileThunkCreator,
-        getStatusThunk,
-        saveProfileThunk,
-        savePhotoThunk,
-        updateStatusThunk }),
+        setUserProfileThunkCreator, getStatusThunk,
+        saveProfileThunk, savePhotoThunk, updateStatusThunk }),
     WithAuthRedirect,
     withRouter
 )(ProfileContainer)

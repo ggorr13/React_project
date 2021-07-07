@@ -22,7 +22,7 @@ const DescriptionForm = (props) => {
             {props.profile.map(val => {
                 return <div key={val}>
                     {Object.keys(val.contacts).map(key => {
-                        return <div key={key}>
+                        return <div className={'mt-3'} key={key}>
                            <Field type={'text'} component={Input} name={`contacts.${key}`} placeholder={key}/>
                         </div>
                     })}

@@ -104,13 +104,14 @@ export const updateStatusThunk = (status) => async (dispatch) => {
     }
 }
 
-export const savePhotoThunk = (image) => async (dispatch) => {
+export const savePhotoThunk = (image) => async (dispatch,getState) => {
 
+    let userId = getState().auth.id
     let response = await profileAPI.profilePhoto(image)
 
     if(response.data.resultCode === 0){
-        console.log(response.data.data.photos)
         dispatch(profilePhotoAC(response.data.data.photos))
+        dispatch(setUserProfileThunkCreator(userId))
     }
 }
 

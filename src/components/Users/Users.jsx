@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import Spiner from '../Common/Spiner/Spiner';
 import {NavLink} from "react-router-dom";
+import s from './Users.module.css';
 
 class Users extends PureComponent {
 
@@ -37,7 +38,7 @@ class Users extends PureComponent {
                         <NavLink to={'profile/' + u.id}>
                             {this.props.isFetching
                                 ? <Spiner/>
-                                : <img src={u.photos.small ? u.photos.small : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
+                                : <img className={s.images} src={u.photos.small ? u.photos.small : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
 
                             }
                         </NavLink>

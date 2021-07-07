@@ -36,15 +36,15 @@ const ProfileInfo = (props) => {
                         props.profile.map(val => {
                             return (
                                 <div key={val}>
-                                    <img src={val.photo.large || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
+                                    <img className={'w-25'} src={val.photo.large || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfgg1JvFtD7oG3i1S8Po1mLLWa8gYgvJGTPFoLqIXQdSzkdq-LabOmK343lT8mvKs0cY&usqp=CAU'}/>
                                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} className={'form-control w-25'}/>}
                                     <h4>{val.fullName}</h4>
                                 </div>
                             )
                         })
                     }
+                    <ProfileStatusWithHoocks status={props.status} updateStatusThunk={props.updateStatusThunk}/>
                 </div>
-                <ProfileStatusWithHoocks status={props.status} updateStatusThunk={props.updateStatusThunk}/>
                 {
                     editMode
                     ? <ProfileForm onSubmit={onSubmit} profile={props.profile} />
