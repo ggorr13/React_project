@@ -6,7 +6,7 @@ export const Input = ({input,meta, ...props}) => {
 
     return (
         <div className={s.formControl+ " " +(meta.touched  && meta.error ? s.error: "")}>
-            <label for={'input'}>
+            <label form={'input'}>
                 <input {...input} {...props} id={'input'} className={'form-control'}/>
                 {meta.touched && meta.error}
             </label>
