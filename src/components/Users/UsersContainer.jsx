@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import s from './Users.module.css';
-import {getUsersThunkCreator, followThunk, unFollowThunk} from '../../redux/usersReducer';
+import {getUsersThunkCreator, followThunk, unFollowThunk, setCurrentPageAC} from '../../redux/usersReducer';
 import React from "react";
 import Users from "./Users";
 import {WithAuthRedirect} from "../../Hoc/WithAuthRedirect";
@@ -24,6 +24,7 @@ class UsersContainer extends React.Component {
         this.props.getUsersThunkCreator(p, this.props.pageSize);
     }
 
+
     render() {
         return <Users {...this.props} onPageChanged={this.onPageChanged}/>
     }
@@ -41,7 +42,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps,{ getUsersThunkCreator, followThunk,unFollowThunk }),
+    connect(mapStateToProps,{ getUsersThunkCreator, followThunk,unFollowThunk,setCurrentPageAC }),
     WithAuthRedirect,
 )(UsersContainer)
 
