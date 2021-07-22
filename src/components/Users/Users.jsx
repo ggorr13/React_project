@@ -5,20 +5,38 @@ import s from './Users.module.css';
 
 class Users extends PureComponent {
 
+    pageNumber (total,max,current)  {
+        const half = Math.round(max / 2);
+
+        let to = max;
+
+       if(current > half) {
+            to = current + half
+       }
+
+       let from = to - max;
+
+       let lastPage = Math.round(this.props.totalUsersCount / this.props.pageSize);
+       if(from + max >= lastPage){
+          max = 5;
+       }
+
+        console.log(current)
+        console.log(lastPage)
+
+       if(current <= lastPage){
+           return Array.from({length:max},(_,i) => (i + 1)+ from)
+       }
+    }
+
     render() {
 
-        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-
-        let pages = [];
-
-        for (let i = 1; i <= pageCount; i++) {
-            pages.push(i)
-        }
-
-        return <div>
+        return <div className={'mt-3'}>
 
             <div className={'mb-5'}>
-                {pages.map(p => {
+                <span className={'mt-2 btn btn-outline-dark'} onClick={() => this.props.onPageChanged(this.props.currentPage - 1)}>Prev</span>
+                {this.pageNumber(this.props.totalUsersCount,10,this.props.currentPage).map(p => {
+
                     return <span className={'alert alert-light'}
                                  onClick={() => {
                                      this.props.onPageChanged(p)
@@ -29,6 +47,11 @@ class Users extends PureComponent {
                              }}>{p}</span>
                    </span>
                 })}
+                {this.props.currentPage < Math.round(this.props.totalUsersCount / this.props.pageSize)
+               ? <span className={'btn btn-outline-dark'} onClick={() => this.props.onPageChanged(this.props.currentPage + 1)}>Next</span>
+                : null
+                }
+
             </div>
 
             {

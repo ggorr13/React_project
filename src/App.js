@@ -3,7 +3,6 @@ import Navbar  from './components/Navbar/Navbar';
 import {Route, BrowserRouter, Redirect} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import UsersContainer from "./components/Users/UsersContainer";
 import React, {Suspense} from "react";
 import {connect, Provider} from "react-redux";
 import { compose } from "redux";
@@ -15,6 +14,7 @@ import Spiner from "./components/Common/Spiner/Spiner";
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const UsersContainer = React.lazy( () => import('./components/Users/UsersContainer'))
 
 class App extends React.Component {
 
@@ -43,7 +43,9 @@ class App extends React.Component {
                             <Route exact path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                         </Suspense>
 
-                        <Route exact path="/users" render={() => <UsersContainer/>}/>
+                        <Suspense fallback={<MainSpinner/>}>
+                            <Route exact path="/users" render={() => <UsersContainer/>}/>
+                        </Suspense>
 
                         <Route exact path="/login" render={() => <Login/>}/>
 

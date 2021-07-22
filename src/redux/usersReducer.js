@@ -6,13 +6,14 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const IS_FETCHING = 'IS_FETCHING';
 const DISABLED = 'DISABLED';
+const USERS_COUNT = 'USERS_COUNT';
 
 let initialState = {
 
     users: [],
-    pageSize:13,
+    pageSize:50,
     currentPage:1,
-    totalUsersCount:160,
+    totalUsersCount:50,
     isFetching: false,
     disabled:false,
 }
@@ -62,7 +63,11 @@ const usersReducer = (state = initialState,action) => {
             return {
                 ...state,
                 disabled: action.bool
-
+            }
+        case USERS_COUNT:
+            return {
+                ...state,
+                totalUsersCount: action.count
             }
         default:
             return state;
@@ -73,21 +78,23 @@ export const followAC = (userId) => ({type:FOLLOW,userId});
 
 export const unFollowAC = (userId) =>({type:UNFOLLOW,userId});
 
-export const setUsersAC = (users) => ({type:SET_USERS,users})
+export const setUsersAC = (users) => ({type:SET_USERS,users});
 
-export const setCurrentPageAC = (currentPage) => ({type:SET_CURRENT_PAGE,currentPage})
+export const setCurrentPageAC = (currentPage) => ({type:SET_CURRENT_PAGE,currentPage});
 
-export const isFetchingAC = (bool) => ({type:IS_FETCHING,bool})
+export const isFetchingAC = (bool) => ({type:IS_FETCHING,bool});
 
-export const disabledAC = (bool) => ({type:DISABLED,bool})
+export const disabledAC = (bool) => ({type:DISABLED,bool});
+
+export const totalUsersCount = (count) => ({type:USERS_COUNT,count});
 
 export const followThunk = (userId) => async (dispatch) => {
 
     dispatch(disabledAC(true))
-    let data = await usersAPI.follow(userId)
+    let data = await usersAPI.follow(userId);
     if(data.resultCode === 0){
-        dispatch(followAC(userId))
-        dispatch(disabledAC(false))
+        dispatch(followAC(userId));
+        dispatch(disabledAC(false));
     }
 
 }
@@ -98,8 +105,8 @@ export const unFollowThunk = (userId) => async (dispatch) => {
     let data = await usersAPI.unFollow(userId)
 
     if (data.resultCode === 0) {
-        dispatch(unFollowAC(userId))
-        dispatch(disabledAC(false))
+        dispatch(unFollowAC(userId));
+        dispatch(disabledAC(false));
     }
 }
 
@@ -107,9 +114,10 @@ export const  getUsersThunkCreator = (currentPage,pageSize) => async (dispatch) 
 
     dispatch(isFetchingAC(true))
     let response = await usersAPI.getUsers(currentPage,pageSize);
-        dispatch(setUsersAC(response.items))
-        dispatch(setCurrentPageAC(currentPage))
-        dispatch(isFetchingAC(false))
+        dispatch(totalUsersCount(response.totalCount));
+        dispatch(setUsersAC(response.items));
+        dispatch(setCurrentPageAC(currentPage));
+        dispatch(isFetchingAC(false));
 }
 
 export default usersReducer;
